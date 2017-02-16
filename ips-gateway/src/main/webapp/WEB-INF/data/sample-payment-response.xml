@@ -1,0 +1,23 @@
+<Ips>  
+    <GateWayRsp>         
+        <head> 
+            <ReferenceID>Ref12345</ReferenceID>       
+            <RspCode>000000</RspCode>             
+            <RspMsg>Success
+            </RspMsg> 
+            <ReqDate>20170210</ReqDate> 
+            <RspDate>20170210</RspDate>             
+            <Signature>MySignature</Signature>
+        </head> 
+        <body>    
+            <MerBillNo>BillNo1234</MerBillNo>             
+            <CurrencyType>156</CurrencyType >    
+            <Amount>200.00</Amount>    
+            <Date>20170210</Date>    
+            <Status>Y</Status>              
+            <IpsBillNo>IpsBillNo1234</IpsBillNo>             
+            <IpsTradeNo>IpsTradeNo1234</IpsTradeNo>             
+            <RetEncodeType>17</RetEncodeType>     
+        </body>  
+    </GateWayRsp> 
+</Ips>

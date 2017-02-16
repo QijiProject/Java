@@ -1,0 +1,25 @@
+<Ips> 
+    <GateWayReq> 
+        <head> 
+            <Version>v1</Version> 
+            <MerCode>123</MerCode> 
+            <MerName>BAE</MerName> 
+            <Account>BAE123</Account>               
+            <MsgId>ID123</MsgId> 
+            <ReqDate>20170210</ReqDate> 
+            <Signature>MySignature</Signature> 
+        </head> 
+        <body> 
+            <MerBillNo>BillNo1234</MerBillNo> 
+            <Amount>200.00</Amount> 
+            <Date>20170210</Date> 
+            <CurrencyType>156</CurrencyType > 
+            <GatewayType>02</GatewayType> 
+            <OrderEncodeType>5</OrderEncodeType> 
+            <RetEncodeType>17</RetEncodeType> 
+            <RetType>1</RetType> 
+            <ServerUrl>http://localhost:8080/dubbo-consumer/paymentResult</ServerUrl> 
+            <GoodsName>Iphone7</GoodsName>
+        </body> 
+    </GateWayReq> 
+</Ips> 
