@@ -16,7 +16,7 @@
             <CurrencyType>156</CurrencyType > 
             <GatewayType>02</GatewayType> 
             <OrderEncodeType>5</OrderEncodeType> 
-            <RetEncodeType>17</RetEncodeType> 
+            <RetEncodeType>16</RetEncodeType> 
             <RetType>1</RetType> 
             <ServerUrl>http://localhost:8080/dubbo-consumer/paymentResult</ServerUrl> 
             <GoodsName>Iphone7</GoodsName>

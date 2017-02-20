@@ -21,7 +21,8 @@ public class PaymentServiceImpl implements PaymentService {
         if (paymentDetailsDao == null) {
             System.out.print("null dao spotted");
         }
-        paymentDetailsDao.saveOrUpdate(PaymentDetailsXMLDeserializer.deserialize(paymentDetails));
+        PaymentDetailsXMLDeserializer.deserializePaymentDetailsXml(paymentDetails);
+        paymentDetailsDao.saveOrUpdate(PaymentDetailsXMLDeserializer.deserializeToPaymentDetails());
     }
 
     @Override

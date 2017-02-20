@@ -7,7 +7,7 @@
             </RspMsg> 
             <ReqDate>20170210</ReqDate> 
             <RspDate>20170210</RspDate>             
-            <Signature>MySignature</Signature>
+            <Signature>[B@54a75b1</Signature>
         </head> 
         <body>    
             <MerBillNo>BillNo1234</MerBillNo>             

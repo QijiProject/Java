@@ -5,7 +5,7 @@
 package com.bae.servlet;
 
 import com.bae.entity.PaymentDetails;
-import com.bae.util.PaymentDetailsValidator;
+import com.mycompany.paymentdetailsvalidator.PaymentDetailsValidator;
 import com.bae.util.PaymentDetailsXMLDeserializer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,14 +47,20 @@ public class PaymentValidationServlet extends HttpServlet {
             throws ServletException, IOException {
         // Set response content type
         response.setContentType("text/html");
-
-        PaymentDetails pdFromResponse = PaymentDetailsXMLDeserializer.deserialize(IOUtils.toString(request.getReader()));
+        PaymentDetailsXMLDeserializer.deserializePaymentDetailsXml(IOUtils.toString(request.getReader()));
+        PaymentDetails pdFromResponse = PaymentDetailsXMLDeserializer.deserializeToPaymentDetails();
 
         PaymentDetails pdFromDB = paymentService.findPaymentByMerbillNo(pdFromResponse.getMerbillNo());
-        if (PaymentDetailsValidator.validate(pdFromResponse, pdFromDB)) {
-            pdFromDB.setValid(true);
-            paymentService.saveOrUpdate(pdFromDB);
-        }
+//        boolean responseCodeValid = PaymentDetailsValidator.validateResponseCode();
+//        boolean fieldsValid = PaymentDetailsValidator.validateFields(pdFromResponse, pdFromDB);
+//        boolean signatureValid = PaymentDetailsValidator.validateSignature();
+//        if(PaymentDetailsValidator.validateResponseCode()) {
+//            
+//        }
+//        if (responseCodeValid && fieldsValid && signatureValid) {
+//            pdFromDB.setValid(true);
+//            paymentService.saveOrUpdate(pdFromDB);
+//        }
         // Actual logic goes here.
         PrintWriter out = response.getWriter();
         out.println("<h1>" + "successful" + "</h1>");

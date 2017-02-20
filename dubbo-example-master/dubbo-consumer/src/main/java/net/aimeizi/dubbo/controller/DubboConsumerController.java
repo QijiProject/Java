@@ -1,5 +1,7 @@
 package net.aimeizi.dubbo.controller;
 
+import com.bae.util.PaymentDetailsXMLDeserializer;
+import com.mycompany.paymentdetailsvalidator.SignatureUtil;
 import javax.servlet.http.HttpServletRequest;
 import net.aimeizi.dubbo.service.PaymentService;
 import org.springframework.stereotype.Controller;
@@ -55,7 +57,8 @@ public class DubboConsumerController {
     @RequestMapping(value = "/showPaymentData", method = RequestMethod.GET)
     public String showPaymentData(Model model, HttpServletRequest req) throws Exception {
         String paymentData = IOUtils.toString(req.getSession().getServletContext().getResourceAsStream("/WEB-INF/data/sample-payment.xml"), "UTF-8");
-        model.addAttribute("paymentData", HtmlUtils.htmlEscape(paymentData.replaceAll("\\s", "")));
+        PaymentDetailsXMLDeserializer.deserializePaymentDetailsXml(paymentData.replaceAll("\\s", ""));
+        model.addAttribute("paymentData", HtmlUtils.htmlEscape(SignatureUtil.createSignature()));
         return "paymentData";
     }
 }
