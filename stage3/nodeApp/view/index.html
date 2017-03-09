@@ -1,0 +1,200 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script type="text/javascript">
+            
+		var socket = io('ws://localhost:8081');
+		socket.on('autoProgress', function(m) {
+			$('#fromRange').text(m.currentStartProgress);
+			$('#toRange').text(m.currentEndProgress);
+		});
+		
+		socket.on('manualProgress', function(m) {
+			$('#fromManualRange').text(m.currentStartProgress);
+			$('#toManualRange').text(m.currentEndProgress);
+		});
+		
+		socket.on('manualOverallProgress', function(m) {
+			$('#manualJobStatus').text(m.status);
+			$('#stopManual').hide();
+			$('#retrieveManualRecords').show();
+			
+			
+		});
+		
+		$(document).ready(function($){
+			$('#retrieveRecords').click(function(e){
+				var jobId = new Date().getTime();
+				socket.emit('addNewJob', {jobId: jobId});
+				$('#stop').show();
+				$('#retrieveRecords').hide();
+				$('#endTimeData').text('');
+
+					$.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : "/startRetrieveRecordsJob",
+						timeout : 100000,
+						data : JSON.stringify({jobId : jobId}),
+						success : function(data) {
+							$('#startTimeData').text(JSON.parse(data).startDateTime);
+							$('#status').text("Status: Updating bet details");
+							console.log("success " + data);
+						},
+						error : function(e) {
+							$('#status').text("Status: Error: " + e );
+							console.log("ERROR: ", e);
+						}
+					});
+		
+			});
+			
+            $('#stop').click(function(e){
+				$('#retrieveRecords').show();
+				$('#stop').hide();
+                $.ajax({
+                    type : "POST",
+                    contentType : "application/xml",
+                    url : "/abortJob",
+                    timeout : 100000,
+                    success : function(data) {
+						$('#startTimeData').text(JSON.parse(data).startDateTime);
+						
+						var responseObj = JSON.parse(data);
+						$('#endTimeData').text(responseObj.endDateTime);
+						
+						$('#status').text("Status: Stopped");
+                        console.log("success " + data);
+                    },
+                    error : function(e) {
+                        console.log("ERROR: ", e);
+                    }
+                });
+    
+			});
+		
+			$('#retrieveManualRecords').click(function(e){
+				if(validateManualJobInput()) {
+					var jobId = new Date().getTime();
+					socket.emit('addNewJob', {jobId: jobId});		
+					$('#stopManual').show();
+					$('#retrieveManualRecords').hide();
+
+					$('#fromManualRange').text('');
+					$('#toManualRange').text('');
+					$.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : "/startManualRetrieveRecordsJob",
+						data : JSON.stringify({manualStartTime: $('#manualStartTime').val(), manualEndTime: $('#manualEndTime').val(), jobId : jobId}),
+						timeout : 100000,
+						success : function(data) {
+							$('#manualJobStatus').text("Status: Updating bet details");
+							console.log("success " + data);
+						},
+						error : function(e) {
+							$('#manualJobStatus').text("Status: Error: " + e );
+							console.log("ERROR: ", e);
+						}
+					});
+				}	
+		
+			});
+			
+		function validateManualJobInput() {
+			var startTimeInput = $('#manualStartTime').val();
+			var endTimeInput = $('#manualEndTime').val();
+			var isValid = false;
+			if(startTimeInput.length == 0 || endTimeInput.length == 0) {
+				alert('Please fill in both start time and end time');
+			} else if (!validateDateInput(startTimeInput)){
+				alert('Invalid start time format');
+			} else if (!validateDateInput(endTimeInput)) {
+				alert('Invalid end time format');
+			} else if (moment(startTimeInput).isAfter(moment(endTimeInput))){
+				alert('End time must be greater than start time');
+			} else {
+				isValid = true;
+			}
+			
+			return isValid;
+				
+		}
+		
+		function validateDateInput(input){
+			return moment(input, "YYYY-MM-DD", true).isValid() || moment(input, "YYYY-MM-DD HH:mm", true).isValid();
+		}
+		
+		$('#stopManual').click(function(e){
+				$('#retrieveManualRecords').show();
+				$('#stopManual').hide();
+                $.ajax({
+                    type : "POST",
+                    contentType : "application/xml",
+                    url : "/abortManualJob",
+                    timeout : 100000,
+                    success : function(data) {
+						$('#manualJobStatus').text("Status: Stopped");
+                        console.log("success " + data);
+                    },
+                    error : function(e) {
+                        console.log("ERROR: ", e);
+                    }
+                });
+    
+        });
+		
+		
+
+		
+});
+
+		//Before browser is closed
+		window.onbeforeunload = function(event){
+			socket.emit('clearClientId');
+			socket.emit('disconnect');
+
+		};
+		
+        
+    </script>
+</head>
+<h1> Auto Retrieval Job </h1>
+<label name="startTime"> Start time: </label>
+<label name="startTimeData" id="startTimeData"></label>
+<br/>
+<label name="endTime"> End time: </label>
+<label name="endTimeData" id="endTimeData"></label>
+<br/>
+<input type="button" value="Retrieve records" id="retrieveRecords"/> 
+<input type="button" value="Stop" id="stop" style="display:none"/>
+<label id="status"></label>
+<br/><br/>
+<label> Current records retrieval time range: </label></br>
+<label>From:</label> <label id="fromRange"></label> </br>
+<label style="margin-left:18px">To:</label> <label id="toRange"></label> </br>
+
+<hr>
+<h1> Manual Retrieval Job </h1>
+
+<label name="startTime"> Start time: </label>
+<input type="text" id="manualStartTime"/>
+<br/>
+<label name="endTime" style="margin-left:5px"> End time: </label>
+<input type="text" id="manualEndTime"/>
+
+<input type="button" value="Start" id="retrieveManualRecords"/>
+<input type="button" value="Stop" id="stopManual" style="display:none"/>
+<label id="manualJobStatus"></label>
+<br/><br/>
+<label style="color:grey"> Sample: 2017-03-05 </label>
+
+
+<br/><br/>
+<label> Current records retrieval time range: </label></br>
+<label>From:</label> <label id="fromManualRange"></label> </br>
+<label style="margin-left:18px">To:</label> <label id="toManualRange"></label> </br>                         
+
+</html>
