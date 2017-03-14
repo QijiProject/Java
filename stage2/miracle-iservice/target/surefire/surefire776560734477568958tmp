@@ -1,8 +1,0 @@
-#surefire
-#Mon Feb 20 17:19:05 SGT 2017
-maven.ext.class.path=C\:\\Program Files\\NetBeans 8.0.2\\java\\maven-nblib\\netbeans-eventspy.jar
-user.dir=C\:\\Users\\Heng Wai\\Documents\\NetBeansProjects\\stage2\\miracle-iservice
-current.jrebel.agent.path=C\:\\Users\\HENGWA~1\\AppData\\Local\\Temp\\.jr15A5AD0CDFC\\jrebel.jar
-file.encoding=UTF-8
-localRepository=C\:\\Users\\Heng Wai\\.m2\\repository
-basedir=C\:\\Users\\Heng Wai\\Documents\\NetBeansProjects\\stage2\\miracle-iservice

@@ -1,9 +1,0 @@
-com\miracle\gameplatform\webservice\entity\GenericEntity.class
-com\miracle\gameplatform\webservice\entity\Balance.class
-com\miracle\gameplatform\webservice\entity\Transaction.class
-com\miracle\gameplatform\common\HttpAsyncFactory$1.class
-com\miracle\gameplatform\service\impl\GamePlatformServiceImpl.class
-com\miracle\gameplatform\common\HttpAsyncFactory.class
-com\miracle\gp\GT.class
-com\miracle\gp\GpOfIMSportService.class
-com\miracle\gameplatform\App.class
