@@ -79,6 +79,7 @@ public class GpOfIMSportService extends GT {
                 throw new Exception();
             }
         } catch (Exception ex) {
+            System.out.println(ex);
             _r = 1411;
         } finally {
             if (request != null) {
@@ -152,10 +153,11 @@ public class GpOfIMSportService extends GT {
             Deposit deposit = new Deposit();
             deposit.configureTimeStamp();
             deposit.setMemberCode("test");
-            deposit.setAmount("1000.00");
+            deposit.setToken("1a2b3c-4d5e");
+            deposit.setAmount("10.00");
             deposit.setCurrencyCode("RMB");
             deposit.setTransferId(UUID.randomUUID().toString());
-            deposit.setToken("1a2b3c-4d5e");
+            
             
             if (deposit.checkConstraint()) {
                 request.setEntity(new StringEntity(XmlUtils.generateSoapBodyContent(deposit)));

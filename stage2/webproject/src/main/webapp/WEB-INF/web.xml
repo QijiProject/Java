@@ -4,16 +4,13 @@
 <web-app>
     <display-name>LokWen WebProject</display-name>
   
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    
-    <context-param>
+   <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/dubbo/zookeeper/applicationContext*.xml,
         </param-value>
     </context-param>
+    
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -27,13 +24,16 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     
     <servlet>
         <servlet-name>WebServiceServlet</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>com.lokwen.webproject</param-value>
+            <param-value>com.lokwen.webproject,com.lokwen.filter</param-value>
         </init-param>
         <init-param>
         <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
