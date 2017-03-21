@@ -5,7 +5,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script type="text/javascript">
             
-		var socket = io('ws://localhost:8081');
+		var socket = io('ws://139.162.67.181:8081');
 		socket.on('autoProgress', function(m) {
 			$('#fromRange').text(m.currentStartProgress);
 			$('#toRange').text(m.currentEndProgress);

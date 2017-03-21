@@ -9,6 +9,7 @@ var jobIdVsSocket = {};
 
 var server = http.createServer(app);
 var ws = require('socket.io')(server);
+var timestampGenerator = require('./timestampGenerator.js');
 
 app.use(cookieParser());
 app.use(express.static(__dirname + '/view'));
@@ -28,6 +29,9 @@ app.get('/', function(req, res) {
 
 //Trigger auto data retrieval job
 app.post('/startRetrieveRecordsJob', function(req, res){
+	var moment = require('moment');
+				console.log('utc time ' + moment.utc().format("d, D MMM YYYY HH:mm:ss z"));
+	timestampGenerator.generate();
 	var dateTime = require('node-datetime');
 	var dt = dateTime.create();
 	var formattedCurrentDateTime = dt.format('Y-m-d H:M:S:N');
@@ -71,7 +75,7 @@ function insertClientJobInstance(clientId, type, value, jobId) {
 }
 
 
-function getJobClientInstance(clientId, type) {
+function getClientJobInstance(clientId, type) {
 	var instance = clientIdVsInstanceMap[clientId];
 	return instance[type].job;
 }
