@@ -5,6 +5,8 @@
  */
 package com.lokwen.json.entity;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Heng Wai
@@ -12,6 +14,15 @@ package com.lokwen.json.entity;
 public class TransactionResponse {
     private String tin;
     private String tout;
+    private BigDecimal amount;
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
     public String getTin() {
         return tin;

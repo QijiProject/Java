@@ -38,7 +38,7 @@ public class TransactionService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String doTransaction(TransactionResponse response) {
-        return JsonUtils.toJson(gamePlatformService.doTransaction(BigDecimal.ZERO, response.getTout(), response.getTin(), null));
+        return JsonUtils.toJson(gamePlatformService.doTransaction(response.getAmount(), response.getTout(), response.getTin(), null));
     }
     
     @Path("/getBalance")

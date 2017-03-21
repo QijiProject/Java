@@ -105,7 +105,7 @@ public class GpOfIMSportService extends GT {
             // TODO
             Withdraw withdraw = new Withdraw();
             withdraw.setMemberCode("test");
-            withdraw.setAmount("15.00");
+            withdraw.setAmount(amount.toString());
             withdraw.setCurrencyCode("RMB");
             withdraw.setTransferId(UUID.randomUUID().toString());
             withdraw.configureTimeStamp();
@@ -154,7 +154,7 @@ public class GpOfIMSportService extends GT {
             deposit.configureTimeStamp();
             deposit.setMemberCode("test");
             deposit.setToken("1a2b3c-4d5e");
-            deposit.setAmount("10.00");
+            deposit.setAmount(amount.toString());
             deposit.setCurrencyCode("RMB");
             deposit.setTransferId(UUID.randomUUID().toString());
             
