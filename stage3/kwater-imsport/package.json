@@ -1,0 +1,16 @@
+{
+  "name": "water-imsport",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "redis": ">= 0.12.1",
+    "log4js": ">= 0.6.21",
+    "request": "2.44.0",
+    "async": ">= 0.9.0",
+    "moment": ">= 2.8.3",
+    "moment-timezone": ">= 0.2.2",
+    "mongoose": ">= 3.8.24",
+    "xml2js": ">= 0.4.5",
+    "thrift": ">= 0.9.2"
+  }
+}
