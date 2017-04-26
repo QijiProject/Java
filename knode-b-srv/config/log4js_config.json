@@ -1,0 +1,17 @@
+{
+    "appenders": [
+    {
+        "category": "knbs",
+        "type": "dateFile",
+        "filename": "./logs/log.log",
+        "pattern": "_yyyy-MM-dd",
+        "alwaysIncludePattern": false,
+        "maxLogSize": 1024,
+        "backups": 3
+    }
+    ],
+
+    "levels": {
+        "knbs":  "info"
+    }
+}

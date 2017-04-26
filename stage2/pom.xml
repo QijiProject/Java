@@ -19,8 +19,6 @@
         <module>keizak-common-zu</module>
         <module>miracle-zu</module>
         <module>miracle-iservice</module>
-        <module>kj-gptransfer</module>
-        <module>webproject</module>
     </modules>
 
     <build>
