@@ -37,7 +37,7 @@ GGFishing.prototype.checkTransfer = function(o, callback) {
 	}, function(error, response, body) {
 		if (response && response.statusCode === 200) {
 			try {
-				var data = JSON.parse(body), b = data.code, status = 2;
+				var data = JSON.parse(body), code = 0, b = data.Code, status = 2;
 				if (b == 0) {
 					code = 0;
 					if (data.Status == 'Approved') {
